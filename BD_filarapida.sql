@@ -1,0 +1,51 @@
+-- Active: 1770078610505@@localhost@3306@fila_rapida
+CREATE DATABASE IF NOT EXISTS fila_rapida;
+USE fila_rapida;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(80) NOT NULL,
+  login VARCHAR(40) NOT NULL UNIQUE,
+  senha_hash VARCHAR(255) NOT NULL,
+  perfil ENUM('ADMIN','ATENDENTE') NOT NULL DEFAULT 'ATENDENTE',
+  ativo TINYINT(1) NOT NULL DEFAULT 1,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS produtos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(80) NOT NULL,
+  preco DECIMAL(10,2) NOT NULL,
+  ativo TINYINT(1) NOT NULL DEFAULT 1,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS pedidos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  usuario_id INT NOT NULL,
+  criado_em DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  total DECIMAL(10,2) NOT NULL DEFAULT 0,
+  FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
+);
+
+CREATE TABLE IF NOT EXISTS pedido_itens (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  pedido_id INT NOT NULL,
+  produto_id INT NOT NULL,
+  qtd INT NOT NULL,
+  preco_unit DECIMAL(10,2) NOT NULL,
+  FOREIGN KEY (pedido_id) REFERENCES pedidos(id),
+  FOREIGN KEY (produto_id) REFERENCES produtos(id)
+);
+ 
+INSERT INTO usuarios (nome, login, senha_hash, perfil)
+VALUES ('Administrador', 'admin', 'admin123', 'ADMIN')
+ON DUPLICATE KEY UPDATE
+nome = VALUES(nome),
+perfil = VALUES(perfil);
+
+INSERT INTO produtos (nome, preco)
+VALUES ('Coxinha', 7.50)
+ON DUPLICATE KEY UPDATE
+preco = VALUES(preco);
+
