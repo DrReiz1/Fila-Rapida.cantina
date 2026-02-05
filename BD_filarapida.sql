@@ -1,4 +1,3 @@
--- Active: 1770078610505@@localhost@3306@fila_rapida
 CREATE DATABASE IF NOT EXISTS fila_rapida;
 USE fila_rapida;
 
@@ -38,14 +37,73 @@ CREATE TABLE IF NOT EXISTS pedido_itens (
   FOREIGN KEY (produto_id) REFERENCES produtos(id)
 );
  
-INSERT INTO usuarios (nome, login, senha_hash, perfil)
-VALUES ('Administrador', 'admin', 'admin123', 'ADMIN')
+INSERT INTO usuarios (nome, login, senha_hash, perfil) VALUES 
+('Administrador', 'admin', 'admin123', 'ADMIN'),
+('Atendente 1', 'at1', '123', 'ATENDENTE')
 ON DUPLICATE KEY UPDATE
 nome = VALUES(nome),
 perfil = VALUES(perfil);
 
 INSERT INTO produtos (nome, preco)
-VALUES ('Coxinha', 7.50)
+VALUES 
+('Coxinha', 7.50),
+('Pão de queijo', 5.00),
+('Suco', 6.00),
+('Refrigerante', 6.50),
+('Bolo', 8.00)
 ON DUPLICATE KEY UPDATE
 preco = VALUES(preco);
+
+-- Produtos ativos
+SELECT * FROM produtos WHERE ativo = 1;
+
+-- Buscar por parte do nome
+SELECT * FROM produtos WHERE nome LIKE '%co%';
+
+-- Usuários por perfil
+SELECT nome, perfil FROM usuarios;
+
+ALTER TABLE produtos
+ADD CONSTRAINT uq_produtos_nome UNIQUE (nome);
+
+
+SELECT id, usuario_id, criado_em, total
+FROM pedidos
+ORDER BY criado_em DESC;
+
+
+SELECT id, nome, perfil
+FROM usuarios
+WHERE login = 'admin'
+  AND senha_hash = 'admin123'
+  AND ativo = 1;
+
+UPDATE usuarios
+SET senha_hash = '240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9'
+WHERE login = 'admin';
+
+SELECT login, senha_hash FROM usuarios WHERE login = 'admin';
+SELECT login, senha_hash FROM usuarios WHERE login = 'at2';
+
+USE fila_rapida;
+
+ALTER TABLE produtos 
+ADD quantidade INT NOT NULL DEFAULT 0;
+
+ALTER TABLE produtos 
+ADD estoque_min INT NOT NULL DEFAULT 5;
+
+USE fila_rapida;
+
+CREATE TABLE IF NOT EXISTS pedidos_reposicao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    produto_id INT,
+    quantidade INT,
+    status VARCHAR(20) DEFAULT 'PENDENTE',
+    criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+SELECT * FROM produtos;
+
+SELECT nome, preco, quantidade FROM produtos;
 

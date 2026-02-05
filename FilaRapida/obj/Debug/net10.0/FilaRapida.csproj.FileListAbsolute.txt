@@ -34,3 +34,4 @@ C:\Users\isaqu\Documents\Daniel Rodrigues Reis\fila_rapida (cantina)\FilaRapida\
 C:\Users\isaqu\Documents\Daniel Rodrigues Reis\fila_rapida (cantina)\FilaRapida\obj\Debug\net10.0\FilaRapida.pdb
 C:\Users\isaqu\Documents\Daniel Rodrigues Reis\fila_rapida (cantina)\FilaRapida\obj\Debug\net10.0\FilaRapida.genruntimeconfig.cache
 C:\Users\isaqu\Documents\Daniel Rodrigues Reis\fila_rapida (cantina)\FilaRapida\obj\Debug\net10.0\ref\FilaRapida.dll
+C:\Users\isaqu\Documents\Daniel Rodrigues Reis\fila_rapida (cantina)\FilaRapida\obj\Debug\net10.0\FilaRapida.sourcelink.json

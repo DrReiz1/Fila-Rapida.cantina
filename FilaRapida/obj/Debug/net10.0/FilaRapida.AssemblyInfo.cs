@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FilaRapida")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d49535a73dfe02d4da5bc9dbe330861e71941c6f")]
 [assembly: System.Reflection.AssemblyProductAttribute("FilaRapida")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FilaRapida")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

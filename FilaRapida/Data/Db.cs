@@ -1,8 +1,16 @@
+using MySql.Data.MySqlClient;
+
 namespace FilaRapida.Data
 {
     public static class Db
     {
         public static string ConnStr =
-            "Server=localhost;Database=fila_rapida;Uid=root;Pwd=;SslMode=Disabled;";
+            "server=localhost;user=root;password=;database=fila_rapida";
+
+             public static MySqlConnection GetConnection()
+        {
+            return new MySqlConnection(ConnStr);
+        }
     }
 }
+
